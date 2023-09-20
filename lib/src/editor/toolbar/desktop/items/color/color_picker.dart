@@ -34,10 +34,8 @@ class _ColorPickerState extends State<ColorPicker> {
   @override
   void initState() {
     super.initState();
-    _colorHexController.text =
-        _extractColorHex(widget.selectedColorHex) ?? 'FFFFFF';
-    _colorOpacityController.text =
-        _convertHexToOpacity(widget.selectedColorHex) ?? '100';
+    _colorHexController.text = _extractColorHex(widget.selectedColorHex) ?? 'FFFFFF';
+    _colorOpacityController.text = _convertHexToOpacity(widget.selectedColorHex) ?? '100';
   }
 
   @override
@@ -49,9 +47,7 @@ class _ColorPickerState extends State<ColorPicker> {
       children: [
         EditorOverlayTitle(text: widget.title),
         const SizedBox(height: 6),
-        widget.showClearButton &&
-                widget.resetText != null &&
-                widget.resetIconName != null
+        widget.showClearButton && widget.resetText != null && widget.resetIconName != null
             ? ResetColorButton(
                 resetText: widget.resetText!,
                 resetIconName: widget.resetIconName!,
@@ -78,13 +74,14 @@ class _ColorPickerState extends State<ColorPicker> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
-      children: options
-          .map((e) => _buildColorItem(e, e.colorHex == selectedColor))
-          .toList(),
+      children: options.map((e) => _buildColorItem(e, e.colorHex == selectedColor)).toList(),
     );
   }
 
   Widget _buildColorItem(ColorOption option, bool isChecked) {
+    final theme = Theme.of(context);
+    final color = theme.textTheme.labelLarge?.color;
+
     return SizedBox(
       height: 36,
       child: TextButton.icon(
@@ -111,7 +108,7 @@ class _ColorPickerState extends State<ColorPicker> {
                 maxLines: 1,
                 overflow: TextOverflow.fade,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.labelLarge?.color,
+                  color: color,
                 ),
               ),
             ),
@@ -150,6 +147,12 @@ class ResetColorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final iconColor = theme.iconTheme.color;
+    final hintColor = theme.hintColor;
+    final hoverColor = theme.hoverColor;
+    const transparentColor = Colors.transparent;
+
     return SizedBox(
       width: double.infinity,
       height: 32,
@@ -159,12 +162,12 @@ class ResetColorButton extends StatelessWidget {
           name: resetIconName,
           width: 13,
           height: 13,
-          color: Theme.of(context).iconTheme.color,
+          color: iconColor,
         ),
         label: Text(
           resetText,
           style: TextStyle(
-            color: Theme.of(context).hintColor,
+            color: hintColor,
           ),
           textAlign: TextAlign.left,
         ),
@@ -172,9 +175,9 @@ class ResetColorButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.hovered)) {
-                return Theme.of(context).hoverColor;
+                return hoverColor;
               }
-              return Colors.transparent;
+              return transparentColor;
             },
           ),
           alignment: Alignment.centerLeft,
@@ -203,6 +206,9 @@ class CustomColorItem extends StatefulWidget {
 class _CustomColorItemState extends State<CustomColorItem> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.labelLarge;
+
     return ExpansionTile(
       tilePadding: const EdgeInsets.only(left: 8),
       shape: Border.all(
@@ -232,7 +238,7 @@ class _CustomColorItemState extends State<CustomColorItem> {
           Expanded(
             child: Text(
               AppFlowyEditorLocalizations.current.customColor,
-              style: Theme.of(context).textTheme.labelLarge,
+              style: textStyle,
               // same style as TextButton.icon
             ),
           ),
@@ -266,6 +272,10 @@ class _CustomColorItemState extends State<CustomColorItem> {
     Function(String)? onChanged,
     Function(String)? onSubmitted,
   }) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.bodyMedium;
+    final outlineColor = theme.colorScheme.outline;
+
     return Padding(
       padding: const EdgeInsets.only(right: 3),
       child: TextField(
@@ -274,11 +284,11 @@ class _CustomColorItemState extends State<CustomColorItem> {
           labelText: labelText,
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.outline,
+              color: outlineColor,
             ),
           ),
         ),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: textStyle,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),

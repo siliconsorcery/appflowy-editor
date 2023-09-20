@@ -4,14 +4,16 @@ final ToolbarItem bulletedListItem = ToolbarItem(
   id: 'editor.bulleted_list',
   group: 3,
   isActive: onlyShowInSingleSelectionAndTextType,
-  builder: (context, editorState, highlightColor) {
+  builder: (context, editorState, paperColor, inkColor) {
     final selection = editorState.selection!;
     final node = editorState.getNodeAtPath(selection.start.path)!;
     final isHighlight = node.type == 'bulleted_list';
+
     return SVGIconItemWidget(
       iconName: 'toolbar/bulleted_list',
       isHighlight: isHighlight,
-      highlightColor: highlightColor,
+      paperColor: paperColor,
+      keyColor: inkColor,
       tooltip: AppFlowyEditorLocalizations.current.bulletedList,
       onPressed: () => editorState.formatNode(
         selection,

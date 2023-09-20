@@ -10,7 +10,7 @@ final linkItem = ToolbarItem(
   id: 'editor.link',
   group: 4,
   isActive: onlyShowInSingleSelectionAndTextType,
-  builder: (context, editorState, highlightColor) {
+  builder: (context, editorState, paperColor, inkColor) {
     final selection = editorState.selection!;
     final nodes = editorState.getNodesInSelection(selection);
     final isHref = nodes.allSatisfyInSelection(selection, (delta) {
@@ -22,7 +22,8 @@ final linkItem = ToolbarItem(
     return SVGIconItemWidget(
       iconName: 'toolbar/link',
       isHighlight: isHref,
-      highlightColor: highlightColor,
+      paperColor: paperColor,
+      keyColor: inkColor,
       tooltip: AppFlowyEditorLocalizations.current.link,
       onPressed: () {
         showLinkMenu(context, editorState, selection, isHref);

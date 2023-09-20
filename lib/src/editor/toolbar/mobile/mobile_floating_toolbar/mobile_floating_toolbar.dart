@@ -159,7 +159,7 @@ class _MobileFloatingToolbarState extends State<MobileFloatingToolbar>
       onSelectAll: () => selectAllCommand.execute(editorState),
       anchors: TextSelectionToolbarAnchors(
         primaryAnchor: offset ?? Offset.zero,
-      ),
+      ), onLiveTextInput: () {  },
     );
   }
 

@@ -24,35 +24,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addYourLink": MessageLookupByLibrary.simpleMessage("Add your link"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
-        "backgroundColor":
-            MessageLookupByLibrary.simpleMessage("Background Color"),
-        "backgroundColorBlue":
-            MessageLookupByLibrary.simpleMessage("Blue background"),
-        "backgroundColorBrown":
-            MessageLookupByLibrary.simpleMessage("Brown background"),
-        "backgroundColorDefault":
-            MessageLookupByLibrary.simpleMessage("Default background"),
-        "backgroundColorGray":
-            MessageLookupByLibrary.simpleMessage("Gray background"),
-        "backgroundColorGreen":
-            MessageLookupByLibrary.simpleMessage("Green background"),
-        "backgroundColorOrange":
-            MessageLookupByLibrary.simpleMessage("Orange background"),
-        "backgroundColorPink":
-            MessageLookupByLibrary.simpleMessage("Pink background"),
-        "backgroundColorPurple":
-            MessageLookupByLibrary.simpleMessage("Purple background"),
-        "backgroundColorRed":
-            MessageLookupByLibrary.simpleMessage("Red background"),
-        "backgroundColorYellow":
-            MessageLookupByLibrary.simpleMessage("Yellow background"),
+        "backgroundColor": MessageLookupByLibrary.simpleMessage("Background Color"),
+        "backgroundColorBlue": MessageLookupByLibrary.simpleMessage("Blue background"),
+        "backgroundColorBrown": MessageLookupByLibrary.simpleMessage("Brown background"),
+        "backgroundColorDefault": MessageLookupByLibrary.simpleMessage("Default background"),
+        "backgroundColorGray": MessageLookupByLibrary.simpleMessage("Gray background"),
+        "backgroundColorGreen": MessageLookupByLibrary.simpleMessage("Green background"),
+        "backgroundColorOrange": MessageLookupByLibrary.simpleMessage("Orange background"),
+        "backgroundColorPink": MessageLookupByLibrary.simpleMessage("Pink background"),
+        "backgroundColorPurple": MessageLookupByLibrary.simpleMessage("Purple background"),
+        "backgroundColorRed": MessageLookupByLibrary.simpleMessage("Red background"),
+        "backgroundColorYellow": MessageLookupByLibrary.simpleMessage("Yellow background"),
         "bold": MessageLookupByLibrary.simpleMessage("Bold"),
         "bulletedList": MessageLookupByLibrary.simpleMessage("Bulleted List"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "checkbox": MessageLookupByLibrary.simpleMessage("Checkbox"),
         "chooseImage": MessageLookupByLibrary.simpleMessage("Choose an image"),
-        "clearHighlightColor":
-            MessageLookupByLibrary.simpleMessage("Clear highlight color"),
+        "clearHighlightColor": MessageLookupByLibrary.simpleMessage("Clear highlight color"),
         "closeFind": MessageLookupByLibrary.simpleMessage("Close"),
         "colAddAfter": MessageLookupByLibrary.simpleMessage("Add after"),
         "colAddBefore": MessageLookupByLibrary.simpleMessage("Add before"),
@@ -84,11 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "heading3": MessageLookupByLibrary.simpleMessage("H3"),
         "hexValue": MessageLookupByLibrary.simpleMessage("Hex value"),
         "highlight": MessageLookupByLibrary.simpleMessage("Highlight"),
-        "highlightColor":
-            MessageLookupByLibrary.simpleMessage("Highlight color"),
+        "highlightColor": MessageLookupByLibrary.simpleMessage("Highlight color"),
         "image": MessageLookupByLibrary.simpleMessage("Image"),
-        "imageLoadFailed":
-            MessageLookupByLibrary.simpleMessage("Could not load the image"),
+        "imageLoadFailed": MessageLookupByLibrary.simpleMessage("Could not load the image"),
         "incorrectLink": MessageLookupByLibrary.simpleMessage("Incorrect Link"),
         "italic": MessageLookupByLibrary.simpleMessage("Italic"),
         "lightLightTint1": MessageLookupByLibrary.simpleMessage("Purple"),
@@ -101,11 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lightLightTint8": MessageLookupByLibrary.simpleMessage("Aqua"),
         "lightLightTint9": MessageLookupByLibrary.simpleMessage("Blue"),
         "link": MessageLookupByLibrary.simpleMessage("Link"),
-        "linkAddressHint":
-            MessageLookupByLibrary.simpleMessage("Please enter URL"),
+        "linkAddressHint": MessageLookupByLibrary.simpleMessage("Please enter URL"),
         "linkText": MessageLookupByLibrary.simpleMessage("Text"),
-        "linkTextHint":
-            MessageLookupByLibrary.simpleMessage("Please enter text"),
+        "linkTextHint": MessageLookupByLibrary.simpleMessage("Please enter text"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "ltr": MessageLookupByLibrary.simpleMessage("LTR"),
         "mobileHeading1": MessageLookupByLibrary.simpleMessage("Heading 1"),
@@ -121,16 +105,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeLink": MessageLookupByLibrary.simpleMessage("Remove link"),
         "replace": MessageLookupByLibrary.simpleMessage("Replace"),
         "replaceAll": MessageLookupByLibrary.simpleMessage("Replace all"),
-        "resetToDefaultColor":
-            MessageLookupByLibrary.simpleMessage("Reset to default color"),
+        "resetToDefaultColor": MessageLookupByLibrary.simpleMessage("Reset to default color"),
         "rowAddAfter": MessageLookupByLibrary.simpleMessage("Add after"),
         "rowAddBefore": MessageLookupByLibrary.simpleMessage("Add before"),
         "rowClear": MessageLookupByLibrary.simpleMessage("Clear Content"),
         "rowDuplicate": MessageLookupByLibrary.simpleMessage("Duplicate"),
         "rowRemove": MessageLookupByLibrary.simpleMessage("Remove"),
         "rtl": MessageLookupByLibrary.simpleMessage("RTL"),
-        "slashPlaceHolder": MessageLookupByLibrary.simpleMessage(
-            "Enter a / to insert a block, or start typing"),
+        "slashPlaceHolder": MessageLookupByLibrary.simpleMessage(" "), // Enter a / to insert a block, or start typing
         "strikethrough": MessageLookupByLibrary.simpleMessage("Strikethrough"),
         "table": MessageLookupByLibrary.simpleMessage("Table"),
         "text": MessageLookupByLibrary.simpleMessage("Text"),

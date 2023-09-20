@@ -5,7 +5,7 @@ ToolbarItem buildHighlightColorItem({List<ColorOption>? colorOptions}) {
     id: 'editor.highlightColor',
     group: 4,
     isActive: onlyShowInTextType,
-    builder: (context, editorState, highlightColor) {
+    builder: (context, editorState, paperColor, inkColor) {
       String? highlightColorHex;
 
       final selection = editorState.selection!;
@@ -19,7 +19,8 @@ ToolbarItem buildHighlightColorItem({List<ColorOption>? colorOptions}) {
       return SVGIconItemWidget(
         iconName: 'toolbar/highlight_color',
         isHighlight: isHighlight,
-        highlightColor: highlightColor,
+        paperColor: paperColor,
+        keyColor: inkColor,
         tooltip: AppFlowyEditorLocalizations.current.highlightColor,
         onPressed: () {
           bool showClearButton = false;

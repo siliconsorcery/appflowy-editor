@@ -12,7 +12,7 @@ class _HeadingToolbarItem extends ToolbarItem {
           id: 'editor.h$level',
           group: 1,
           isActive: onlyShowInSingleSelectionAndTextType,
-          builder: (context, editorState, highlightColor) {
+          builder: (context, editorState, paperColor, inkColor) {
             final selection = editorState.selection!;
             final node = editorState.getNodeAtPath(selection.start.path)!;
             final isHighlight =
@@ -21,7 +21,8 @@ class _HeadingToolbarItem extends ToolbarItem {
             return SVGIconItemWidget(
               iconName: 'toolbar/h$level',
               isHighlight: isHighlight,
-              highlightColor: highlightColor,
+              paperColor: paperColor,
+              keyColor: inkColor,
               tooltip: levelToTooltips(level),
               onPressed: () => editorState.formatNode(
                 selection,

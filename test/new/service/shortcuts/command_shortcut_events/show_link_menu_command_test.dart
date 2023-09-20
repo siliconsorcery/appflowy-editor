@@ -48,6 +48,10 @@ Future<void> _testLinkMenuInSingleTextSelection(WidgetTester tester) async {
       editorState: editor.editorState,
       scrollController: scrollController,
     ),
+    style: const FloatingToolbarStyle(
+      paperColor: Colors.white,
+      inkColor: Colors.blue,
+    ),
     child: AppFlowyEditor(editorState: editor.editorState),
   );
 
@@ -59,8 +63,7 @@ Future<void> _testLinkMenuInSingleTextSelection(WidgetTester tester) async {
     ),
   );
 
-  final selection =
-      Selection.single(path: [1], startOffset: 0, endOffset: text.length);
+  final selection = Selection.single(path: [1], startOffset: 0, endOffset: text.length);
   await editor.updateSelection(selection);
 
   // show toolbar

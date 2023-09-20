@@ -32,10 +32,16 @@ class EditorSvg extends StatelessWidget {
 
   Widget _buildSvg() {
     if (name != null) {
+      ColorFilter? colorFilter = () {
+        if (color == null) {
+          return null;
+        }
+        return ColorFilter.mode(color!, BlendMode.srcIn);
+      }();
+
       return SvgPicture.asset(
         'assets/images/$name.svg',
-        colorFilter:
-            color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
+        colorFilter: colorFilter,
         fit: BoxFit.fill,
         height: height,
         width: width,

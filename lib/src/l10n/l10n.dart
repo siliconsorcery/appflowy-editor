@@ -26,9 +26,7 @@ class AppFlowyEditorLocalizations {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<AppFlowyEditorLocalizations> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -47,8 +45,7 @@ class AppFlowyEditorLocalizations {
   }
 
   static AppFlowyEditorLocalizations? maybeOf(BuildContext context) {
-    return Localizations.of<AppFlowyEditorLocalizations>(
-        context, AppFlowyEditorLocalizations);
+    return Localizations.of<AppFlowyEditorLocalizations>(context, AppFlowyEditorLocalizations);
   }
 
   /// `Bold`
@@ -1134,7 +1131,7 @@ class AppFlowyEditorLocalizations {
   /// `Enter a / to insert a block, or start typing`
   String get slashPlaceHolder {
     return Intl.message(
-      'Enter a / to insert a block, or start typing',
+      'Hey', // Enter a / to insert a block, or start typing',
       name: 'slashPlaceHolder',
       desc: '',
       args: [],
@@ -1142,8 +1139,7 @@ class AppFlowyEditorLocalizations {
   }
 }
 
-class AppLocalizationDelegate
-    extends LocalizationsDelegate<AppFlowyEditorLocalizations> {
+class AppLocalizationDelegate extends LocalizationsDelegate<AppFlowyEditorLocalizations> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
@@ -1177,8 +1173,7 @@ class AppLocalizationDelegate
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
   @override
-  Future<AppFlowyEditorLocalizations> load(Locale locale) =>
-      AppFlowyEditorLocalizations.load(locale);
+  Future<AppFlowyEditorLocalizations> load(Locale locale) => AppFlowyEditorLocalizations.load(locale);
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

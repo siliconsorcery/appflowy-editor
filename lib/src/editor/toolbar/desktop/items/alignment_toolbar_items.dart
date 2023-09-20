@@ -31,7 +31,7 @@ class _AlignmentToolbarItem extends ToolbarItem {
           id: 'editor.$id',
           group: 6,
           isActive: onlyShowInTextType,
-          builder: (context, editorState, highlightColor) {
+          builder: (context, editorState, paperColor, inkColor) {
             final selection = editorState.selection!;
             final nodes = editorState.getNodesInSelection(selection);
             final isHighlight = nodes.every(
@@ -41,7 +41,8 @@ class _AlignmentToolbarItem extends ToolbarItem {
             return SVGIconItemWidget(
               iconName: 'toolbar/$name',
               isHighlight: isHighlight,
-              highlightColor: highlightColor,
+              paperColor: paperColor,
+              keyColor: inkColor,
               tooltip: tooltip,
               onPressed: () => editorState.updateNode(
                 selection,

@@ -2,28 +2,38 @@ import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 
 ButtonStyle buildOverlayButtonStyle(BuildContext context) {
+  final theme = Theme.of(context);
+  final color = theme.hoverColor;
+  const transparentColor = Colors.transparent;
+
   return ButtonStyle(
     backgroundColor: MaterialStateProperty.resolveWith<Color>(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.hovered)) {
-          return Theme.of(context).hoverColor;
+          return color;
         }
-        return Colors.transparent;
+        return transparentColor;
       },
     ),
   );
 }
 
 BoxDecoration buildOverlayDecoration(BuildContext context) {
+  final theme = Theme.of(context);
+  final color = theme.cardColor;
+  final shadowColor = Colors.black.withOpacity(0.2);
+
+  final boxShadow = BoxShadow(
+    color: shadowColor,
+    blurRadius: 8,
+    offset: const Offset(0, 0),
+  );
+
   return BoxDecoration(
-    color: Theme.of(context).cardColor,
+    color: color,
     borderRadius: BorderRadius.circular(6),
     boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.2),
-        blurRadius: 10,
-        offset: const Offset(0, 2),
-      ),
+      boxShadow,
     ],
   );
 }

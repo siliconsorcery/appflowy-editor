@@ -1,9 +1,8 @@
+import 'package:appflowy_editor/src/editor_state.dart';
 import 'package:appflowy_editor/src/flutter/overlay.dart';
 import 'package:appflowy_editor/src/render/toolbar/toolbar_item.dart';
 import 'package:appflowy_editor/src/render/toolbar/toolbar_item_widget.dart';
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry;
-
-import 'package:appflowy_editor/src/editor_state.dart';
 
 mixin ToolbarMixin<T extends StatefulWidget> on State<T> {
   void hide();
@@ -46,7 +45,7 @@ class _ToolbarWidgetState extends State<ToolbarWidget> with ToolbarMixin {
         showWhenUnlinked: true,
         offset: widget.offset,
         followerAnchor: widget.alignment,
-        child: _buildToolbar(context, widget.highlightColor),
+        child: _buildToolbar(context, widget.highlightColor, Colors.red),
       ),
     );
   }
@@ -57,13 +56,17 @@ class _ToolbarWidgetState extends State<ToolbarWidget> with ToolbarMixin {
     _listToolbarOverlay = null;
   }
 
-  Widget _buildToolbar(BuildContext context, Color highlightColor) {
+  Widget _buildToolbar(
+    BuildContext context,
+    Color paperColor,
+    Color inkColor,
+  ) {
     return Material(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(8),
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         child: SizedBox(
-          height: 32.0,
+          height: 32,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: widget.items
@@ -72,18 +75,16 @@ class _ToolbarWidgetState extends State<ToolbarWidget> with ToolbarMixin {
                     child: item.builder?.call(
                           context,
                           widget.editorState,
-                          highlightColor,
+                          paperColor,
+                          inkColor,
                         ) ??
                         item.itemBuilder?.call(context, widget.editorState) ??
                         ToolbarItemWidget(
                           item: item,
-                          isHighlight: item.highlightCallback
-                                  ?.call(widget.editorState) ??
-                              false,
+                          isHighlight: item.highlightCallback?.call(widget.editorState) ?? false,
                           onPressed: () {
                             item.handler?.call(widget.editorState, context);
-                            widget.editorState.service.keyboardService
-                                ?.enable();
+                            widget.editorState.service.keyboardService?.enable();
                           },
                         ),
                   ),

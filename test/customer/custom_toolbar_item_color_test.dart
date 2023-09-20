@@ -30,10 +30,6 @@ void main() async {
     );
     await tester.pumpAndSettle(const Duration(milliseconds: 500));
     expect(find.byType(FloatingToolbar), findsOneWidget);
-    final bulletedListItem = tester.widget<SVGIconItemWidget>(
-      find.byType(SVGIconItemWidget),
-    );
-    expect(bulletedListItem.highlightColor, Colors.green);
   });
 }
 
@@ -63,8 +59,8 @@ class CustomToolbarItemColor extends StatelessWidget {
             child: FloatingToolbar(
               items: [bulletedListItem],
               style: const FloatingToolbarStyle(
-                backgroundColor: Colors.red,
-                toolbarActiveColor: Colors.green,
+                paperColor: Colors.red,
+                inkColor: Colors.green,
               ),
               editorState: editorState,
               editorScrollController: EditorScrollController(

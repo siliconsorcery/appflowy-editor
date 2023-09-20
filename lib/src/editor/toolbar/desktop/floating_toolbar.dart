@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 
 class FloatingToolbarStyle {
   const FloatingToolbarStyle({
-    this.backgroundColor = Colors.black,
-    this.toolbarActiveColor = Colors.lightBlue,
+    required this.paperColor,
+    required this.inkColor,
   });
 
-  final Color backgroundColor;
-  final Color toolbarActiveColor;
+  final Color paperColor;
+  final Color inkColor;
 }
 
 /// A floating toolbar that displays at the top of the editor when the selection
@@ -23,7 +23,7 @@ class FloatingToolbar extends StatefulWidget {
     required this.editorState,
     required this.editorScrollController,
     required this.child,
-    this.style = const FloatingToolbarStyle(),
+    required this.style,
   });
 
   final List<ToolbarItem> items;
@@ -36,8 +36,7 @@ class FloatingToolbar extends StatefulWidget {
   State<FloatingToolbar> createState() => _FloatingToolbarState();
 }
 
-class _FloatingToolbarState extends State<FloatingToolbar>
-    with WidgetsBindingObserver {
+class _FloatingToolbarState extends State<FloatingToolbar> with WidgetsBindingObserver {
   OverlayEntry? _toolbarContainer;
   FloatingToolbarWidget? _toolbarWidget;
 
@@ -100,9 +99,7 @@ class _FloatingToolbarState extends State<FloatingToolbar>
   void _onSelectionChanged() {
     final selection = editorState.selection;
     final selectionType = editorState.selectionType;
-    if (selection == null ||
-        selection.isCollapsed ||
-        selectionType == SelectionType.block) {
+    if (selection == null || selection.isCollapsed || selectionType == SelectionType.block) {
       _clear();
     } else {
       // uses debounce to avoid the computing the rects too frequently.
@@ -121,7 +118,6 @@ class _FloatingToolbarState extends State<FloatingToolbar>
   final String _debounceKey = 'show the toolbar';
   void _clear() {
     Debounce.cancel(_debounceKey);
-
     _toolbarContainer?.remove();
     _toolbarContainer = null;
   }
@@ -157,8 +153,8 @@ class _FloatingToolbarState extends State<FloatingToolbar>
       builder: (context) {
         return Positioned(
           top: max(0, top) - floatingToolbarHeight,
-          left: left,
-          right: right,
+          left: 12, //left,
+          right: 12, //right,
           child: _buildToolbar(context),
         );
       },
@@ -170,8 +166,8 @@ class _FloatingToolbarState extends State<FloatingToolbar>
     _toolbarWidget ??= FloatingToolbarWidget(
       items: widget.items,
       editorState: editorState,
-      backgroundColor: widget.style.backgroundColor,
-      toolbarActiveColor: widget.style.toolbarActiveColor,
+      paperColor: widget.style.paperColor,
+      inkColor: widget.style.inkColor,
     );
     return _toolbarWidget!;
   }
@@ -179,8 +175,7 @@ class _FloatingToolbarState extends State<FloatingToolbar>
   Rect _findSuitableRect(Iterable<Rect> rects) {
     assert(rects.isNotEmpty);
 
-    final editorOffset =
-        editorState.renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
+    final editorOffset = editorState.renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
 
     // find the min offset with non-negative dy.
     final rectsWithNonNegativeDy = rects.where(
@@ -204,18 +199,16 @@ class _FloatingToolbarState extends State<FloatingToolbar>
     return minRect;
   }
 
+  /// Calculate the toolbar's offset based on the selection's rect.
   (double? left, double top, double? right) calculateToolbarOffset(Rect rect) {
-    final editorOffset =
-        editorState.renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
+    final editorOffset = editorState.renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
     final editorSize = editorState.renderBox?.size ?? Size.zero;
     final editorRect = editorOffset & editorSize;
     final left = (rect.left - editorOffset.dx).abs();
     final right = (rect.right - editorOffset.dx).abs();
     final width = editorSize.width;
     final threshold = width / 3.0;
-    final top = rect.top < floatingToolbarHeight
-        ? rect.bottom + floatingToolbarHeight
-        : rect.top;
+    final top = rect.top < floatingToolbarHeight ? rect.bottom + floatingToolbarHeight : rect.top;
     if (left <= threshold) {
       // show in left
       return (rect.left, top, null);

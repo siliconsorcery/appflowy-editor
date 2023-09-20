@@ -4,14 +4,15 @@ final ToolbarItem numberedListItem = ToolbarItem(
   id: 'editor.numbered_list',
   group: 3,
   isActive: onlyShowInSingleSelectionAndTextType,
-  builder: (context, editorState, highlightColor) {
+  builder: (context, editorState, paperColor, inkColor) {
     final selection = editorState.selection!;
     final node = editorState.getNodeAtPath(selection.start.path)!;
     final isHighlight = node.type == 'numbered_list';
     return SVGIconItemWidget(
       iconName: 'toolbar/numbered_list',
       isHighlight: isHighlight,
-      highlightColor: highlightColor,
+      paperColor: paperColor,
+      keyColor: inkColor,
       tooltip: AppFlowyEditorLocalizations.current.numberedList,
       onPressed: () => editorState.formatNode(
         selection,

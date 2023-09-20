@@ -4,14 +4,15 @@ final ToolbarItem quoteItem = ToolbarItem(
   id: 'editor.quote',
   group: 3,
   isActive: onlyShowInSingleSelectionAndTextType,
-  builder: (context, editorState, highlightColor) {
+  builder: (context, editorState, paperColor, inkColor) {
     final selection = editorState.selection!;
     final node = editorState.getNodeAtPath(selection.start.path)!;
     final isHighlight = node.type == 'quote';
     return SVGIconItemWidget(
       iconName: 'toolbar/quote',
       isHighlight: isHighlight,
-      highlightColor: highlightColor,
+      paperColor: paperColor,
+      keyColor: inkColor,
       tooltip: AppFlowyEditorLocalizations.current.quote,
       onPressed: () => editorState.formatNode(
         selection,

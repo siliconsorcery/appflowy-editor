@@ -124,12 +124,15 @@ class _LinkMenuState extends State<LinkMenu> {
     required String text,
     required VoidCallback onPressed,
   }) {
+    final theme = Theme.of(context);
+    final color = theme.textTheme.labelLarge?.color;
+
     return SizedBox(
       height: 36,
       child: TextButton.icon(
         icon: EditorSvg(
           name: iconName,
-          color: Theme.of(context).textTheme.labelLarge?.color,
+          color: color,
         ),
         label: Row(
           // This row is used to align the text to the left
@@ -137,7 +140,7 @@ class _LinkMenuState extends State<LinkMenu> {
             Text(
               text,
               style: TextStyle(
-                color: Theme.of(context).textTheme.labelLarge?.color,
+                color: color,
               ),
             ),
           ],

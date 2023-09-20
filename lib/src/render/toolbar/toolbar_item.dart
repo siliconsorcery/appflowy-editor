@@ -29,7 +29,8 @@ class ToolbarItem {
   final Widget Function(
     BuildContext context,
     EditorState editorState,
-    Color highlightColor,
+    Color paperColor,
+    Color inkColor,
   )? builder;
 
   // deprecated
@@ -37,13 +38,14 @@ class ToolbarItem {
   final String tooltipsMessage;
 
   final ToolbarItemValidator? validator;
-
   final Widget Function(bool isHighlight)? iconBuilder;
   final ToolbarItemEventHandler? handler;
   final ToolbarItemHighlightCallback? highlightCallback;
 
-  final Widget Function(BuildContext context, EditorState editorState)?
-      itemBuilder;
+  final Widget Function(
+    BuildContext context,
+    EditorState editorState,
+  )? itemBuilder;
 
   factory ToolbarItem.divider() {
     return ToolbarItem(

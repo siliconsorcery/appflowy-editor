@@ -7,7 +7,7 @@ ToolbarItem buildTextColorItem({
     id: 'editor.textColor',
     group: 4,
     isActive: onlyShowInTextType,
-    builder: (context, editorState, highlightColor) {
+    builder: (context, editorState, paperColor, inkColor) {
       String? textColorHex;
       final selection = editorState.selection!;
       final nodes = editorState.getNodesInSelection(selection);
@@ -20,7 +20,8 @@ ToolbarItem buildTextColorItem({
       return SVGIconItemWidget(
         iconName: 'toolbar/text_color',
         isHighlight: isHighlight,
-        highlightColor: highlightColor,
+        paperColor: paperColor,
+        keyColor: inkColor,
         tooltip: AppFlowyEditorLocalizations.current.textColor,
         onPressed: () {
           bool showClearButton = false;

@@ -67,6 +67,10 @@ class _DesktopEditorState extends State<DesktopEditor> {
       ],
       editorState: editorState,
       editorScrollController: editorScrollController,
+      style: const FloatingToolbarStyle(
+        inkColor: Colors.blue,
+        paperColor: Colors.white,
+      ),
       child: Directionality(
         textDirection: widget.textDirection,
         child: AppFlowyEditor(

@@ -43,7 +43,7 @@ class _FormatToolbarItem extends ToolbarItem {
           id: 'editor.$id',
           group: 2,
           isActive: onlyShowInTextType,
-          builder: (context, editorState, highlightColor) {
+          builder: (context, editorState, paperColor, inkColor) {
             final selection = editorState.selection!;
             final nodes = editorState.getNodesInSelection(selection);
             final isHighlight = nodes.allSatisfyInSelection(selection, (delta) {
@@ -54,7 +54,8 @@ class _FormatToolbarItem extends ToolbarItem {
             return SVGIconItemWidget(
               iconName: 'toolbar/$name',
               isHighlight: isHighlight,
-              highlightColor: highlightColor,
+              paperColor: paperColor,
+              keyColor: inkColor,
               tooltip: tooltip,
               onPressed: () => editorState.toggleAttribute(name),
             );
