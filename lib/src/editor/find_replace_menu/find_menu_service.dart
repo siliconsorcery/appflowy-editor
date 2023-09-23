@@ -24,8 +24,8 @@ class FindReplaceMenu implements FindReplaceService {
   final FindReplaceLocalizations? localizations;
   final FindReplaceStyle style;
 
-  final double topOffset = 52;
-  final double rightOffset = 40;
+  final double topOffset = 32;
+  final double rightOffset = 32;
 
   bool _selectionUpdateByInner = false;
 
@@ -39,8 +39,7 @@ class FindReplaceMenu implements FindReplaceService {
     _findReplaceMenuEntry?.remove();
     _findReplaceMenuEntry = null;
 
-    final isSelectionDisposed =
-        editorState.service.selectionServiceKey.currentState == null;
+    final isSelectionDisposed = editorState.service.selectionServiceKey.currentState == null;
     if (!isSelectionDisposed) {
       final selectionService = editorState.service.selectionService;
       selectionService.currentSelection.removeListener(_onSelectionChange);
@@ -65,18 +64,19 @@ class FindReplaceMenu implements FindReplaceService {
           top: topOffset,
           right: rightOffset,
           child: Material(
-            borderRadius: BorderRadius.circular(8.0),
+            color: Colors.transparent,
+            // borderRadius: BorderRadius.circular(12),
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: editorState.editorStyle.selectionColor,
+                color: const Color.fromARGB(255, 255, 255, 255), //editorState.editorStyle.selectionColor,
                 boxShadow: [
                   BoxShadow(
-                    blurRadius: 5,
+                    blurRadius: 8,
                     spreadRadius: 1,
                     color: Colors.black.withOpacity(0.1),
                   ),
                 ],
-                borderRadius: BorderRadius.circular(6.0),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: FindMenuWidget(
                 dismiss: dismiss,
@@ -96,8 +96,7 @@ class FindReplaceMenu implements FindReplaceService {
 
   void _onSelectionChange() {
     // workaround: SelectionService has been released after hot reload.
-    final isSelectionDisposed =
-        editorState.service.selectionServiceKey.currentState == null;
+    final isSelectionDisposed = editorState.service.selectionServiceKey.currentState == null;
     if (!isSelectionDisposed) {
       final selectionService = editorState.service.selectionService;
       if (selectionService.currentSelection.value == null) {

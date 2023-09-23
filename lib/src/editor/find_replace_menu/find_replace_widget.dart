@@ -41,8 +41,8 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
     searchService = SearchService(
       editorState: widget.editorState,
       style: SearchStyle(
-        selectedHighlightColor: widget.style.selectedHighlightColor,
-        unselectedHighlightColor: widget.style.unselectedHighlightColor,
+        selectedHighlightColor: Colors.red, // widget.style.selectedHighlightColor,
+        unselectedHighlightColor: Colors.amber, // widget.style.unselectedHighlightColor,
       ),
     );
 
@@ -62,17 +62,38 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
 
   @override
   Widget build(BuildContext context) {
+    const keyColor = Colors.blue;
+
+    const paperColor = Colors.white;
+    final hoverColor = keyColor.withAlpha(32);
+
+    final style = ButtonStyle(
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.hovered)) {
+            return hoverColor;
+          }
+          return paperColor;
+        },
+      ),
+      shape: MaterialStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+    );
+
     return Column(
       children: [
         Row(
           children: [
             IconButton(
+              color: keyColor,
               onPressed: () => setState(
                 () => replaceFlag = !replaceFlag,
               ),
-              icon: replaceFlag
-                  ? const Icon(Icons.expand_less)
-                  : const Icon(Icons.expand_more),
+              icon: replaceFlag ? const Icon(Icons.expand_less) : const Icon(Icons.expand_more),
+              style: style,
             ),
             SizedBox(
               width: 200,
@@ -90,8 +111,7 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
                   );
                 },
                 decoration: _buildInputDecoration(
-                  widget.localizations?.find ??
-                      AppFlowyEditorLocalizations.current.find,
+                  widget.localizations?.find ?? AppFlowyEditorLocalizations.current.find,
                 ),
               ),
             ),
@@ -99,17 +119,23 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
               buttonKey: const Key('previousMatchButton'),
               iconSize: _iconSize,
               onPressed: () => searchService.navigateToMatch(moveUp: true),
-              icon: const Icon(Icons.arrow_upward),
-              tooltip: widget.localizations?.previousMatch ??
-                  AppFlowyEditorLocalizations.current.previousMatch,
+              icon: const Icon(
+                Icons.arrow_upward,
+                color: keyColor,
+              ),
+              style: style,
+              tooltip: widget.localizations?.previousMatch ?? AppFlowyEditorLocalizations.current.previousMatch,
             ),
             FindMenuIconButton(
               buttonKey: const Key('nextMatchButton'),
               iconSize: _iconSize,
               onPressed: () => searchService.navigateToMatch(),
-              icon: const Icon(Icons.arrow_downward),
-              tooltip: widget.localizations?.nextMatch ??
-                  AppFlowyEditorLocalizations.current.nextMatch,
+              icon: const Icon(
+                Icons.arrow_downward,
+                color: keyColor,
+              ),
+              style: style,
+              tooltip: widget.localizations?.nextMatch ?? AppFlowyEditorLocalizations.current.nextMatch,
             ),
             FindMenuIconButton(
               buttonKey: const Key('closeButton'),
@@ -122,9 +148,12 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
                 );
                 queriedPattern = '';
               },
-              icon: const Icon(Icons.close),
-              tooltip: widget.localizations?.close ??
-                  AppFlowyEditorLocalizations.current.closeFind,
+              style: style,
+              icon: const Icon(
+                Icons.close,
+                color: keyColor,
+              ),
+              tooltip: widget.localizations?.close ?? AppFlowyEditorLocalizations.current.closeFind,
             ),
           ],
         ),
@@ -143,31 +172,35 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
                         _replaceSelectedWord();
 
                         Future.delayed(const Duration(milliseconds: 50)).then(
-                          (value) => FocusScope.of(context)
-                              .requestFocus(replaceFocusNode),
+                          (value) => FocusScope.of(context).requestFocus(replaceFocusNode),
                         );
                       },
                       decoration: _buildInputDecoration(
-                        widget.localizations?.replace ??
-                            AppFlowyEditorLocalizations.current.replace,
+                        widget.localizations?.replace ?? AppFlowyEditorLocalizations.current.replace,
                       ),
                     ),
                   ),
                   FindMenuIconButton(
                     buttonKey: const Key('replaceSelectedButton'),
                     onPressed: () => _replaceSelectedWord(),
-                    icon: const Icon(Icons.find_replace),
+                    icon: const Icon(
+                      Icons.find_replace,
+                      color: keyColor,
+                    ),
                     iconSize: _iconSize,
-                    tooltip: widget.localizations?.replace ??
-                        AppFlowyEditorLocalizations.current.replace,
+                    style: style,
+                    tooltip: widget.localizations?.replace ?? AppFlowyEditorLocalizations.current.replace,
                   ),
                   FindMenuIconButton(
                     buttonKey: const Key('replaceAllButton'),
                     onPressed: () => _replaceAllMatches(),
-                    icon: const Icon(Icons.change_circle_outlined),
+                    icon: const Icon(
+                      Icons.change_circle_outlined,
+                      color: keyColor,
+                    ),
                     iconSize: _iconSize,
-                    tooltip: widget.localizations?.replaceAll ??
-                        AppFlowyEditorLocalizations.current.replaceAll,
+                    style: style,
+                    tooltip: widget.localizations?.replaceAll ?? AppFlowyEditorLocalizations.current.replaceAll,
                   ),
                 ],
               )
@@ -198,7 +231,12 @@ class _FindMenuWidgetState extends State<FindMenuWidget> {
   InputDecoration _buildInputDecoration(String hintText) {
     return InputDecoration(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      border: const OutlineInputBorder(),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide.none,
+      ),
+      filled: true,
+      fillColor: const Color.fromARGB(255, 244, 244, 244),
       hintText: hintText,
     );
   }
@@ -212,6 +250,7 @@ class FindMenuIconButton extends StatelessWidget {
     this.iconSize,
     this.tooltip,
     this.buttonKey,
+    this.style,
   });
 
   final Widget icon;
@@ -219,6 +258,7 @@ class FindMenuIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final double? iconSize;
   final String? tooltip;
+  final ButtonStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -231,6 +271,7 @@ class FindMenuIconButton extends StatelessWidget {
         icon: icon,
         iconSize: iconSize,
         tooltip: tooltip,
+        style: style,
       ),
     );
   }

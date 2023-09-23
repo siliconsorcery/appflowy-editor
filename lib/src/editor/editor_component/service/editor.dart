@@ -30,12 +30,9 @@ class AppFlowyEditor extends StatefulWidget {
     this.header,
     this.footer,
     this.focusNode,
-  })  : blockComponentBuilders =
-            blockComponentBuilders ?? standardBlockComponentBuilderMap,
-        characterShortcutEvents =
-            characterShortcutEvents ?? standardCharacterShortcutEvents,
-        commandShortcutEvents =
-            commandShortcutEvents ?? standardCommandShortcutEvents,
+  })  : blockComponentBuilders = blockComponentBuilders ?? standardBlockComponentBuilderMap,
+        characterShortcutEvents = characterShortcutEvents ?? standardCharacterShortcutEvents,
+        commandShortcutEvents = commandShortcutEvents ?? standardCommandShortcutEvents,
         contextMenuItems = contextMenuItems ?? standardContextMenuItems;
 
   final EditorState editorState;
