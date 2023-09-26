@@ -1,8 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 
-List<ToolbarItem> headingItems = [1, 2, 3]
-    .map((index) => _HeadingToolbarItem(index))
-    .toList(growable: false);
+List<ToolbarItem> headingItems = [1, 2, 3].map((index) => _HeadingToolbarItem(index)).toList(growable: false);
 
 class _HeadingToolbarItem extends ToolbarItem {
   final int level;
@@ -15,8 +13,7 @@ class _HeadingToolbarItem extends ToolbarItem {
           builder: (context, editorState, paperColor, inkColor) {
             final selection = editorState.selection!;
             final node = editorState.getNodeAtPath(selection.start.path)!;
-            final isHighlight =
-                node.type == 'heading' && node.attributes['level'] == level;
+            final isHighlight = node.type == 'heading' && node.attributes['level'] == level;
             final delta = (node.delta ?? Delta()).toJson();
             return SVGIconItemWidget(
               iconName: 'toolbar/h$level',
@@ -27,15 +24,11 @@ class _HeadingToolbarItem extends ToolbarItem {
               onPressed: () => editorState.formatNode(
                 selection,
                 (node) => node.copyWith(
-                  type: isHighlight
-                      ? ParagraphBlockKeys.type
-                      : HeadingBlockKeys.type,
+                  type: isHighlight ? ParagraphBlockKeys.type : HeadingBlockKeys.type,
                   attributes: {
                     HeadingBlockKeys.level: level,
-                    blockComponentBackgroundColor:
-                        node.attributes[blockComponentBackgroundColor],
-                    blockComponentTextDirection:
-                        node.attributes[blockComponentTextDirection],
+                    blockComponentPaperColor: node.attributes[blockComponentPaperColor],
+                    blockComponentTextDirection: node.attributes[blockComponentTextDirection],
                     blockComponentDelta: delta,
                   },
                 ),

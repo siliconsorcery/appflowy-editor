@@ -4,10 +4,10 @@
 /// for more information, please refer to https://quilljs.com/docs/delta/
 const blockComponentDelta = 'delta';
 
-/// the background of the block component
+/// the background/paper color of the block component
 ///
-/// its value is a string of hex code, e.g. '#00000000'
-const blockComponentBackgroundColor = 'bgColor';
+/// its value is a string of hex code, e.g. '0xFFA9AAF2'
+const blockComponentPaperColor = 'paper';
 
 /// the text direction of the block component
 ///

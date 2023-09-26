@@ -110,7 +110,8 @@ class _DesktopEditorState extends State<DesktopEditor> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 200.0),
+      // padding: const EdgeInsets.symmetric(horizontal: 0.0),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
     );
   }
 
@@ -147,7 +148,7 @@ class _DesktopEditorState extends State<DesktopEditor> {
     // customize the padding
     map.forEach((key, value) {
       value.configuration = BlockComponentConfiguration(
-        padding: (_) => const EdgeInsets.symmetric(vertical: 8.0),
+        padding: (_) => const EdgeInsets.symmetric(vertical: 8),
       );
     });
     return map;

@@ -15,7 +15,7 @@ class HeadingBlockKeys {
 
   static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -65,9 +65,7 @@ class HeadingBlockComponentBuilder extends BlockComponentBuilder {
 
   @override
   bool validate(Node node) =>
-      node.delta != null &&
-      node.children.isEmpty &&
-      node.attributes[HeadingBlockKeys.level] is int;
+      node.delta != null && node.children.isEmpty && node.attributes[HeadingBlockKeys.level] is int;
 }
 
 class HeadingBlockComponentWidget extends BlockComponentStatefulWidget {
@@ -84,17 +82,15 @@ class HeadingBlockComponentWidget extends BlockComponentStatefulWidget {
   final TextStyle Function(int level)? textStyleBuilder;
 
   @override
-  State<HeadingBlockComponentWidget> createState() =>
-      _HeadingBlockComponentWidgetState();
+  State<HeadingBlockComponentWidget> createState() => _HeadingBlockComponentWidgetState();
 }
 
-class _HeadingBlockComponentWidgetState
-    extends State<HeadingBlockComponentWidget>
+class _HeadingBlockComponentWidgetState extends State<HeadingBlockComponentWidget>
     with
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
   @override
@@ -126,7 +122,6 @@ class _HeadingBlockComponentWidgetState
     );
 
     Widget child = Container(
-      color: backgroundColor,
       width: double.infinity,
       alignment: alignment,
       // Related issue: https://github.com/AppFlowy-IO/AppFlowy/issues/3175
@@ -144,8 +139,7 @@ class _HeadingBlockComponentWidgetState
               textSpanDecorator: (textSpan) {
                 var result = textSpan.updateTextStyle(textStyle);
                 result = result.updateTextStyle(
-                  widget.textStyleBuilder?.call(level) ??
-                      defaultTextStyle(level),
+                  widget.textStyleBuilder?.call(level) ?? defaultTextStyle(level),
                 );
                 return result;
               },
@@ -155,8 +149,7 @@ class _HeadingBlockComponentWidgetState
                     placeholderTextStyle,
                   )
                   .updateTextStyle(
-                    widget.textStyleBuilder?.call(level) ??
-                        defaultTextStyle(level),
+                    widget.textStyleBuilder?.call(level) ?? defaultTextStyle(level),
                   ),
               textDirection: textDirection,
               cursorColor: editorState.editorStyle.cursorColor,
@@ -196,8 +189,8 @@ class _HeadingBlockComponentWidgetState
   }
 
   TextStyle? defaultTextStyle(int level) {
-    final fontSizes = [32.0, 28.0, 24.0, 18.0, 18.0, 18.0];
-    final fontSize = fontSizes.elementAtOrNull(level) ?? 18.0;
+    final fontSizes = [48.0, 26.0, 28.0, 22.0, 18.0, 16.0];
+    final fontSize = fontSizes.elementAtOrNull(level) ?? 16.0;
     return TextStyle(
       fontSize: fontSize,
       fontWeight: FontWeight.bold,

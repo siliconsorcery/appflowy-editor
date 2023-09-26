@@ -29,8 +29,7 @@ abstract class BlockComponentBuilder with BlockComponentSelectable {
 
   BlockActionBuilder actionBuilder = (_, __) => const SizedBox.shrink();
 
-  BlockComponentConfiguration configuration =
-      const BlockComponentConfiguration();
+  BlockComponentConfiguration configuration = const BlockComponentConfiguration();
 }
 
 mixin BlockComponentSelectable<T extends BlockComponentBuilder> {
@@ -58,8 +57,7 @@ abstract class BlockComponentRendererService {
   void register(String type, BlockComponentBuilder builder);
 
   /// Register render plugins with specified [type]s.
-  void registerAll(Map<String, BlockComponentBuilder> builders) =>
-      builders.forEach(register);
+  void registerAll(Map<String, BlockComponentBuilder> builders) => builders.forEach(register);
 
   /// UnRegister plugin with specified [type].
   void unRegister(String type);
@@ -93,9 +91,7 @@ abstract class BlockComponentRendererService {
     BuildContext buildContext,
     Iterable<Node> nodes,
   ) {
-    return nodes
-        .map((node) => build(buildContext, node))
-        .toList(growable: false);
+    return nodes.map((node) => build(buildContext, node)).toList(growable: false);
   }
 }
 

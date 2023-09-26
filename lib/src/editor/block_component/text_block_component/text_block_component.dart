@@ -8,7 +8,7 @@ class ParagraphBlockKeys {
 
   static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -23,11 +23,9 @@ Node paragraphNode({
   return Node(
     type: ParagraphBlockKeys.type,
     attributes: {
-      ParagraphBlockKeys.delta:
-          (delta ?? (Delta()..insert(text ?? ''))).toJson(),
+      ParagraphBlockKeys.delta: (delta ?? (Delta()..insert(text ?? ''))).toJson(),
       if (attributes != null) ...attributes,
-      if (textDirection != null)
-        ParagraphBlockKeys.textDirection: textDirection,
+      if (textDirection != null) ParagraphBlockKeys.textDirection: textDirection,
     },
     children: children,
   );
@@ -69,8 +67,7 @@ class TextBlockComponentWidget extends BlockComponentStatefulWidget {
   });
 
   @override
-  State<TextBlockComponentWidget> createState() =>
-      _TextBlockComponentWidgetState();
+  State<TextBlockComponentWidget> createState() => _TextBlockComponentWidgetState();
 }
 
 class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
@@ -78,7 +75,7 @@ class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         NestedBlockComponentStatefulWidgetMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
@@ -116,8 +113,7 @@ class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
 
   void _onSelectionChange() {
     final selection = editorState.selection;
-    final showPlaceholder = selection != null &&
-        (selection.isSingle && selection.start.path.equals(node.path));
+    final showPlaceholder = selection != null && (selection.isSingle && selection.start.path.equals(node.path));
     if (showPlaceholder != _showPlaceholder) {
       setState(() => _showPlaceholder = showPlaceholder);
     }
@@ -133,7 +129,7 @@ class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
     );
 
     Widget child = Container(
-      color: withBackgroundColor ? backgroundColor : null,
+      // color: withBackgroundColor ? Colors.red : null,
       width: double.infinity,
       alignment: alignment,
       child: Column(
@@ -149,10 +145,8 @@ class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
             editorState: editorState,
             textAlign: alignment?.toTextAlign,
             placeholderText: _showPlaceholder ? placeholderText : ' ',
-            textSpanDecorator: (textSpan) =>
-                textSpan.updateTextStyle(textStyle),
-            placeholderTextSpanDecorator: (textSpan) =>
-                textSpan.updateTextStyle(placeholderTextStyle),
+            textSpanDecorator: (textSpan) => textSpan.updateTextStyle(textStyle),
+            placeholderTextSpanDecorator: (textSpan) => textSpan.updateTextStyle(placeholderTextStyle),
             textDirection: textDirection,
             cursorColor: editorState.editorStyle.cursorColor,
             selectionColor: editorState.editorStyle.selectionColor,
@@ -160,6 +154,21 @@ class _TextBlockComponentWidgetState extends State<TextBlockComponentWidget>
         ],
       ),
     );
+
+    // child = Padding(
+    //   padding: const EdgeInsets.all(8),
+    //   child: ColoredBox(
+    //     color: backgroundColor,
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(8),
+    //       child: Padding(
+    //         key: blockComponentKey,
+    //         padding: padding,
+    //         child: child,
+    //       ),
+    //     ),
+    //   ),
+    // );
 
     child = Padding(
       key: blockComponentKey,

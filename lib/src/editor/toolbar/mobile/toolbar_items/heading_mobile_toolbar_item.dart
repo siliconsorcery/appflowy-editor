@@ -50,10 +50,9 @@ class _HeadingMenuState extends State<_HeadingMenu> {
     final size = MediaQuery.sizeOf(context);
     final btnList = headings.map((currentHeading) {
       // Check if current node is heading and its level
-      final node =
-          widget.editorState.getNodeAtPath(widget.selection.start.path)!;
-      final isSelected = node.type == HeadingBlockKeys.type &&
-          node.attributes[HeadingBlockKeys.level] == currentHeading.level;
+      final node = widget.editorState.getNodeAtPath(widget.selection.start.path)!;
+      final isSelected =
+          node.type == HeadingBlockKeys.type && node.attributes[HeadingBlockKeys.level] == currentHeading.level;
 
       return ConstrainedBox(
         constraints: BoxConstraints.tightFor(
@@ -72,13 +71,10 @@ class _HeadingMenuState extends State<_HeadingMenu> {
               widget.editorState.formatNode(
                 widget.selection,
                 (node) => node.copyWith(
-                  type: isSelected
-                      ? ParagraphBlockKeys.type
-                      : HeadingBlockKeys.type,
+                  type: isSelected ? ParagraphBlockKeys.type : HeadingBlockKeys.type,
                   attributes: {
                     HeadingBlockKeys.level: currentHeading.level,
-                    HeadingBlockKeys.backgroundColor:
-                        node.attributes[blockComponentBackgroundColor],
+                    HeadingBlockKeys.paperColor: node.attributes[blockComponentPaperColor],
                     ParagraphBlockKeys.delta: (node.delta ?? Delta()).toJson(),
                   },
                 ),

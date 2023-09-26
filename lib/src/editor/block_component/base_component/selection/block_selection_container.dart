@@ -10,7 +10,7 @@ class BlockSelectionContainer extends StatelessWidget {
     required this.listenable,
     this.cursorColor = Colors.black,
     this.selectionColor = Colors.blue,
-    this.blockColor = Colors.blue,
+    this.blockColor = Colors.red,
     this.supportTypes = const [
       BlockSelectionType.cursor,
       BlockSelectionType.selection,
@@ -46,9 +46,8 @@ class BlockSelectionContainer extends StatelessWidget {
       clipBehavior: Clip.none,
       // In RTL mode, if the alignment is topStart,
       //  the selection will be on the opposite side of the block component.
-      alignment: Directionality.of(context) == TextDirection.ltr
-          ? AlignmentDirectional.topStart
-          : AlignmentDirectional.topEnd,
+      alignment:
+          Directionality.of(context) == TextDirection.ltr ? AlignmentDirectional.topStart : AlignmentDirectional.topEnd,
       children: [
         BlockSelectionArea(
           node: node,

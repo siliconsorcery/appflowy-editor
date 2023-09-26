@@ -145,5 +145,5 @@
   "rowDuplicate": "Duplicate",
   "colClear": "Clear Content",
   "rowClear": "Clear Content",
-  "slashPlaceHolder": "Hey",
+  "slashPlaceHolder": "Enter a / to insert a block, or start typing",
 }

@@ -21,10 +21,8 @@ final ToolbarItem paragraphItem = ToolbarItem(
           type: ParagraphBlockKeys.type,
           attributes: {
             blockComponentDelta: delta,
-            blockComponentBackgroundColor:
-                node.attributes[blockComponentBackgroundColor],
-            blockComponentTextDirection:
-                node.attributes[blockComponentTextDirection],
+            blockComponentPaperColor: node.attributes[blockComponentPaperColor],
+            blockComponentTextDirection: node.attributes[blockComponentTextDirection],
           },
         ),
       ),

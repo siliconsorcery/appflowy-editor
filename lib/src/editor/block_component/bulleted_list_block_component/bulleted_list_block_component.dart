@@ -9,7 +9,7 @@ class BulletedListBlockKeys {
 
   static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -24,11 +24,9 @@ Node bulletedListNode({
   return Node(
     type: BulletedListBlockKeys.type,
     attributes: {
-      BulletedListBlockKeys.delta:
-          (delta ?? (Delta()..insert(text ?? ''))).toJson(),
+      BulletedListBlockKeys.delta: (delta ?? (Delta()..insert(text ?? ''))).toJson(),
       if (attributes != null) ...attributes,
-      if (textDirection != null)
-        BulletedListBlockKeys.textDirection: textDirection,
+      if (textDirection != null) BulletedListBlockKeys.textDirection: textDirection,
     },
     children: children ?? [],
   );
@@ -75,17 +73,15 @@ class BulletedListBlockComponentWidget extends BlockComponentStatefulWidget {
   final BlockIconBuilder? iconBuilder;
 
   @override
-  State<BulletedListBlockComponentWidget> createState() =>
-      _BulletedListBlockComponentWidgetState();
+  State<BulletedListBlockComponentWidget> createState() => _BulletedListBlockComponentWidgetState();
 }
 
-class _BulletedListBlockComponentWidgetState
-    extends State<BulletedListBlockComponentWidget>
+class _BulletedListBlockComponentWidgetState extends State<BulletedListBlockComponentWidget>
     with
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         NestedBlockComponentStatefulWidgetMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
@@ -116,7 +112,6 @@ class _BulletedListBlockComponentWidgetState
     );
 
     Widget child = Container(
-      color: withBackgroundColor ? backgroundColor : null,
       width: double.infinity,
       alignment: alignment,
       child: Row(
@@ -142,8 +137,7 @@ class _BulletedListBlockComponentWidgetState
               textSpanDecorator: (textSpan) => textSpan.updateTextStyle(
                 textStyle,
               ),
-              placeholderTextSpanDecorator: (textSpan) =>
-                  textSpan.updateTextStyle(
+              placeholderTextSpanDecorator: (textSpan) => textSpan.updateTextStyle(
                 placeholderTextStyle,
               ),
               textDirection: textDirection,

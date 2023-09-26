@@ -208,9 +208,10 @@ class _CustomColorItemState extends State<CustomColorItem> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textStyle = theme.textTheme.labelLarge;
+    const tilePadding = EdgeInsets.only(left: 8);
 
     return ExpansionTile(
-      tilePadding: const EdgeInsets.only(left: 8),
+      tilePadding: tilePadding,
       shape: Border.all(
         color: Colors.transparent,
       ), // remove the default border when it is expanded
@@ -275,9 +276,10 @@ class _CustomColorItemState extends State<CustomColorItem> {
     final theme = Theme.of(context);
     final textStyle = theme.textTheme.bodyMedium;
     final outlineColor = theme.colorScheme.outline;
+    const padding = EdgeInsets.only(right: 4);
 
     return Padding(
-      padding: const EdgeInsets.only(right: 3),
+      padding: padding,
       child: TextField(
         controller: controller,
         decoration: InputDecoration(

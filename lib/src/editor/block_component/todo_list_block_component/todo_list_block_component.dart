@@ -14,7 +14,7 @@ class TodoListBlockKeys {
 
   static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -69,8 +69,7 @@ class TodoListBlockComponentBuilder extends BlockComponentBuilder {
 
   @override
   bool validate(Node node) {
-    return node.delta != null &&
-        node.attributes[TodoListBlockKeys.checked] is bool;
+    return node.delta != null && node.attributes[TodoListBlockKeys.checked] is bool;
   }
 }
 
@@ -89,17 +88,15 @@ class TodoListBlockComponentWidget extends BlockComponentStatefulWidget {
   final BlockIconBuilder? iconBuilder;
 
   @override
-  State<TodoListBlockComponentWidget> createState() =>
-      _TodoListBlockComponentWidgetState();
+  State<TodoListBlockComponentWidget> createState() => _TodoListBlockComponentWidgetState();
 }
 
-class _TodoListBlockComponentWidgetState
-    extends State<TodoListBlockComponentWidget>
+class _TodoListBlockComponentWidgetState extends State<TodoListBlockComponentWidget>
     with
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         NestedBlockComponentStatefulWidgetMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
@@ -132,7 +129,6 @@ class _TodoListBlockComponentWidgetState
     );
 
     Widget child = Container(
-      color: withBackgroundColor ? backgroundColor : null,
       width: double.infinity,
       alignment: alignment,
       child: Row(
@@ -156,13 +152,10 @@ class _TodoListBlockComponentWidgetState
               textAlign: alignment?.toTextAlign,
               placeholderText: placeholderText,
               textDirection: textDirection,
-              textSpanDecorator: (textSpan) =>
-                  textSpan.updateTextStyle(textStyle).updateTextStyle(
-                        widget.textStyleBuilder?.call(checked) ??
-                            defaultTextStyle(),
-                      ),
-              placeholderTextSpanDecorator: (textSpan) =>
-                  textSpan.updateTextStyle(
+              textSpanDecorator: (textSpan) => textSpan.updateTextStyle(textStyle).updateTextStyle(
+                    widget.textStyleBuilder?.call(checked) ?? defaultTextStyle(),
+                  ),
+              placeholderTextSpanDecorator: (textSpan) => textSpan.updateTextStyle(
                 placeholderTextStyle,
               ),
               cursorColor: editorState.editorStyle.cursorColor,

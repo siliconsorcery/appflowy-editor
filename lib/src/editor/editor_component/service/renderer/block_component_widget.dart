@@ -9,8 +9,7 @@ mixin BlockComponentWidget on Widget {
   bool get showActions;
 }
 
-class BlockComponentStatelessWidget extends StatelessWidget
-    implements BlockComponentWidget {
+class BlockComponentStatelessWidget extends StatelessWidget implements BlockComponentWidget {
   const BlockComponentStatelessWidget({
     super.key,
     required this.node,
@@ -37,8 +36,7 @@ class BlockComponentStatelessWidget extends StatelessWidget
   }
 }
 
-class BlockComponentStatefulWidget extends StatefulWidget
-    implements BlockComponentWidget {
+class BlockComponentStatefulWidget extends StatefulWidget implements BlockComponentWidget {
   const BlockComponentStatefulWidget({
     super.key,
     required this.node,
@@ -60,32 +58,27 @@ class BlockComponentStatefulWidget extends StatefulWidget
   final BlockComponentConfiguration configuration;
 
   @override
-  State<BlockComponentStatefulWidget> createState() =>
-      _BlockComponentStatefulWidgetState();
+  State<BlockComponentStatefulWidget> createState() => _BlockComponentStatefulWidgetState();
 }
 
-class _BlockComponentStatefulWidgetState
-    extends State<BlockComponentStatefulWidget> {
+class _BlockComponentStatefulWidgetState extends State<BlockComponentStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     throw UnimplementedError();
   }
 }
 
-mixin NestedBlockComponentStatefulWidgetMixin<
-        T extends BlockComponentStatefulWidget>
-    on State<T>, BlockComponentBackgroundColorMixin {
+mixin NestedBlockComponentStatefulWidgetMixin<T extends BlockComponentStatefulWidget>
+    on State<T>, BlockComponentPaperColorMixin {
   late final editorState = Provider.of<EditorState>(context, listen: false);
 
   BlockComponentConfiguration get configuration;
 
   EdgeInsets get indentPadding {
-    TextDirection direction =
-        Directionality.maybeOf(context) ?? TextDirection.ltr;
+    TextDirection direction = Directionality.maybeOf(context) ?? TextDirection.ltr;
     if (node.children.isNotEmpty) {
       final firstChild = node.children.first;
-      final currentState =
-          firstChild.key.currentState as BlockComponentTextDirectionMixin?;
+      final currentState = firstChild.key.currentState as BlockComponentTextDirectionMixin?;
       if (currentState != null) {
         final lastDirection = currentState.lastDirection;
         direction = calculateNodeDirection(
@@ -106,8 +99,7 @@ mixin NestedBlockComponentStatefulWidgetMixin<
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final left =
-          node.selectable?.getBlockRect(shiftWithBaseOffset: true).left;
+      final left = node.selectable?.getBlockRect(shiftWithBaseOffset: true).left;
       if (cachedLeft != left) {
         setState(() => cachedLeft = left);
       }
@@ -124,12 +116,12 @@ mixin NestedBlockComponentStatefulWidgetMixin<
   Widget buildComponentWithChildren(BuildContext context) {
     return Stack(
       children: [
-        Positioned.fill(
-          left: cachedLeft,
-          child: Container(
-            color: backgroundColor,
-          ),
-        ),
+        // Positioned.fill(
+        //   left: cachedLeft,
+        //   child: Container(
+        //     color: paperColor,
+        //   ),
+        // ),
         NestedListWidget(
           indentPadding: indentPadding,
           child: buildComponent(context, withBackgroundColor: false),

@@ -61,12 +61,10 @@ class DividerBlockComponentWidget extends BlockComponentStatefulWidget {
   final double height;
 
   @override
-  State<DividerBlockComponentWidget> createState() =>
-      _DividerBlockComponentWidgetState();
+  State<DividerBlockComponentWidget> createState() => _DividerBlockComponentWidgetState();
 }
 
-class _DividerBlockComponentWidgetState
-    extends State<DividerBlockComponentWidget>
+class _DividerBlockComponentWidgetState extends State<DividerBlockComponentWidget>
     with SelectableMixin, BlockComponentConfigurable {
   @override
   BlockComponentConfiguration get configuration => widget.configuration;
@@ -170,9 +168,7 @@ class _DividerBlockComponentWidgetState
     final dividerBox = dividerKey.currentContext?.findRenderObject();
     if (parentBox is RenderBox && dividerBox is RenderBox) {
       return [
-        (shiftWithBaseOffset
-                ? dividerBox.localToGlobal(Offset.zero, ancestor: parentBox)
-                : Offset.zero) &
+        (shiftWithBaseOffset ? dividerBox.localToGlobal(Offset.zero, ancestor: parentBox) : Offset.zero) &
             dividerBox.size,
       ];
     }

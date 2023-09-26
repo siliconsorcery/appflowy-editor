@@ -10,9 +10,9 @@ class NumberedListBlockKeys {
 
   static const String number = 'number';
 
-  static const String delta = blockComponentDelta;
+  // static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  // static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -32,8 +32,7 @@ Node numberedListNode({
     type: NumberedListBlockKeys.type,
     attributes: {
       ...attributes,
-      if (textDirection != null)
-        NumberedListBlockKeys.textDirection: textDirection,
+      if (textDirection != null) NumberedListBlockKeys.textDirection: textDirection,
     },
     children: children ?? [],
   );
@@ -80,17 +79,15 @@ class NumberedListBlockComponentWidget extends BlockComponentStatefulWidget {
   final BlockIconBuilder? iconBuilder;
 
   @override
-  State<NumberedListBlockComponentWidget> createState() =>
-      _NumberedListBlockComponentWidgetState();
+  State<NumberedListBlockComponentWidget> createState() => _NumberedListBlockComponentWidgetState();
 }
 
-class _NumberedListBlockComponentWidgetState
-    extends State<NumberedListBlockComponentWidget>
+class _NumberedListBlockComponentWidgetState extends State<NumberedListBlockComponentWidget>
     with
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         NestedBlockComponentStatefulWidgetMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
@@ -121,7 +118,7 @@ class _NumberedListBlockComponentWidgetState
     );
 
     Widget child = Container(
-      color: withBackgroundColor ? backgroundColor : null,
+      // color: withBackgroundColor ? paperColor : null,
       width: double.infinity,
       alignment: alignment,
       child: Row(
@@ -148,8 +145,7 @@ class _NumberedListBlockComponentWidgetState
               textSpanDecorator: (textSpan) => textSpan.updateTextStyle(
                 textStyle,
               ),
-              placeholderTextSpanDecorator: (textSpan) =>
-                  textSpan.updateTextStyle(
+              placeholderTextSpanDecorator: (textSpan) => textSpan.updateTextStyle(
                 placeholderTextStyle,
               ),
               textDirection: textDirection,

@@ -20,8 +20,10 @@ ButtonStyle buildOverlayButtonStyle(BuildContext context) {
 
 BoxDecoration buildOverlayDecoration(BuildContext context) {
   final theme = Theme.of(context);
+  
   final color = theme.cardColor;
   final shadowColor = Colors.black.withOpacity(0.2);
+  final borderRadius = BorderRadius.circular(6);
 
   final boxShadow = BoxShadow(
     color: shadowColor,
@@ -31,7 +33,7 @@ BoxDecoration buildOverlayDecoration(BuildContext context) {
 
   return BoxDecoration(
     color: color,
-    borderRadius: BorderRadius.circular(6),
+    borderRadius: borderRadius,
     boxShadow: [
       boxShadow,
     ],

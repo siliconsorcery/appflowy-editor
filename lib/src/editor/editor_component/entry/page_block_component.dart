@@ -59,9 +59,12 @@ class PageBlockComponent extends BlockComponentStatelessWidget {
               if (header != null) header!,
               ...items
                   .map(
-                    (e) => Padding(
-                      padding: editorState.editorStyle.padding,
-                      child: editorState.renderer.build(context, e),
+                    (e) => ColoredBox(
+                      color: Colors.lime,
+                      child: Padding(
+                        padding: EdgeInsets.zero, // editorState.editorStyle.padding,
+                        child: editorState.renderer.build(context, e),
+                      ),
                     ),
                   )
                   .toList(),
@@ -83,13 +86,79 @@ class PageBlockComponent extends BlockComponentStatelessWidget {
           editorState.updateAutoScroller(Scrollable.of(context));
           if (header != null && index == 0) return header!;
           if (footer != null && index == items.length + 1) return footer!;
+          final item = items[index - (header != null ? 1 : 0)];
+
+          const isCard = true;
+          const isPaper = true;
+          const amount = 0.9;
+          const spacing = (amount == 0) ? 0 : 2.0;
+
+          final padding = configuration.padding(item);
+          final colorString = item.attributes[blockComponentPaperColor] as String?;
+          Color paperColor = () {
+            if (isPaper) {
+              return (colorString?.tryToColor() ?? Colors.white) ?? Colors.transparent;
+            } else {
+              return isCard ? Colors.white : Colors.transparent;
+            }
+          }();
+
+          final pageOuterPadding = EdgeInsets.fromLTRB(
+            editorState.editorStyle.padding.left * amount,
+            editorState.editorStyle.padding.top * amount + spacing,
+            editorState.editorStyle.padding.right * amount,
+            editorState.editorStyle.padding.bottom * amount + spacing,
+          );
+          final innerPadding = EdgeInsets.fromLTRB(
+            editorState.editorStyle.padding.left * (1 - amount) + padding.left,
+            editorState.editorStyle.padding.top * (1 - amount) + padding.top,
+            editorState.editorStyle.padding.right * (1 - amount) + padding.right,
+            editorState.editorStyle.padding.bottom * (1 - amount) + padding.bottom,
+          );
+          final decoration = (amount > 0.1 && isCard)
+              ? BoxDecoration(
+                  color: paperColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: const Color.fromARGB(117, 205, 205, 205),
+                    width: 1,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromARGB(8, 0, 66, 132),
+                      offset: Offset(0, 0),
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                )
+              : BoxDecoration(
+                  color: paperColor,
+                );
+
           return Padding(
-            padding: editorState.editorStyle.padding,
-            child: editorState.renderer.build(
-              context,
-              items[index - (header != null ? 1 : 0)],
+            padding: pageOuterPadding,
+            child: DecoratedBox(
+              decoration: decoration,
+              child: Padding(
+                padding: innerPadding,
+                child: editorState.renderer.build(
+                  context,
+                  item,
+                ),
+              ),
             ),
           );
+
+          // return ColoredBox(
+          //   color: Colors.lime,
+          //   child: Padding(
+          //     padding: EdgeInsets.zero, // editorState.editorStyle.padding,
+          //     child: editorState.renderer.build(
+          //       context,
+          //       item,
+          //     ),
+          //   ),
+          // );
         },
         itemScrollController: scrollController.itemScrollController,
         scrollOffsetController: scrollController.scrollOffsetController,

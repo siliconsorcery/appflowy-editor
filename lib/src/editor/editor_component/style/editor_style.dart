@@ -1,5 +1,4 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
-
 import 'package:flutter/material.dart';
 
 /// The style of the editor.
@@ -50,16 +49,14 @@ class EditorStyle {
     TextStyleConfiguration? textStyleConfiguration,
     TextSpanDecoratorForAttribute? textSpanDecorator,
     this.defaultTextDirection,
-  })  : padding = padding ?? const EdgeInsets.symmetric(horizontal: 100),
+  })  : padding = padding ?? const EdgeInsets.symmetric(horizontal: 64),
         cursorColor = cursorColor ?? const Color(0xFF00BCF0),
-        selectionColor =
-            selectionColor ?? const Color.fromARGB(53, 111, 201, 231),
+        selectionColor = selectionColor ?? const Color.fromARGB(53, 111, 201, 231),
         textStyleConfiguration = textStyleConfiguration ??
             const TextStyleConfiguration(
               text: TextStyle(fontSize: 16, color: Colors.black),
             ),
-        textSpanDecorator =
-            textSpanDecorator ?? defaultTextSpanDecoratorForAttribute;
+        textSpanDecorator = textSpanDecorator ?? defaultTextSpanDecoratorForAttribute;
 
   const EditorStyle.mobile({
     EdgeInsets? padding,
@@ -70,14 +67,12 @@ class EditorStyle {
     this.defaultTextDirection,
   })  : padding = padding ?? const EdgeInsets.symmetric(horizontal: 20),
         cursorColor = cursorColor ?? const Color(0xFF00BCF0),
-        selectionColor =
-            selectionColor ?? const Color.fromARGB(53, 111, 201, 231),
+        selectionColor = selectionColor ?? const Color.fromARGB(53, 111, 201, 231),
         textStyleConfiguration = textStyleConfiguration ??
             const TextStyleConfiguration(
               text: TextStyle(fontSize: 16, color: Colors.black),
             ),
-        textSpanDecorator =
-            textSpanDecorator ?? mobileTextSpanDecoratorForAttribute;
+        textSpanDecorator = textSpanDecorator ?? mobileTextSpanDecoratorForAttribute;
 
   EditorStyle copyWith({
     EdgeInsets? padding,
@@ -91,8 +86,7 @@ class EditorStyle {
       padding: padding ?? this.padding,
       cursorColor: cursorColor ?? this.cursorColor,
       selectionColor: selectionColor ?? this.selectionColor,
-      textStyleConfiguration:
-          textStyleConfiguration ?? this.textStyleConfiguration,
+      textStyleConfiguration: textStyleConfiguration ?? this.textStyleConfiguration,
       textSpanDecorator: textSpanDecorator ?? this.textSpanDecorator,
       defaultTextDirection: defaultTextDirection,
     );

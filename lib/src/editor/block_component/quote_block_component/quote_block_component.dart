@@ -10,7 +10,7 @@ class QuoteBlockKeys {
 
   static const String delta = blockComponentDelta;
 
-  static const String backgroundColor = blockComponentBackgroundColor;
+  static const String paperColor = blockComponentPaperColor;
 
   static const String textDirection = blockComponentTextDirection;
 }
@@ -73,8 +73,7 @@ class QuoteBlockComponentWidget extends BlockComponentStatefulWidget {
   final BlockIconBuilder? iconBuilder;
 
   @override
-  State<QuoteBlockComponentWidget> createState() =>
-      _QuoteBlockComponentWidgetState();
+  State<QuoteBlockComponentWidget> createState() => _QuoteBlockComponentWidgetState();
 }
 
 class _QuoteBlockComponentWidgetState extends State<QuoteBlockComponentWidget>
@@ -82,7 +81,7 @@ class _QuoteBlockComponentWidgetState extends State<QuoteBlockComponentWidget>
         SelectableMixin,
         DefaultSelectableMixin,
         BlockComponentConfigurable,
-        BlockComponentBackgroundColorMixin,
+        BlockComponentPaperColorMixin,
         BlockComponentTextDirectionMixin,
         BlockComponentAlignMixin {
   @override
@@ -112,40 +111,40 @@ class _QuoteBlockComponentWidgetState extends State<QuoteBlockComponentWidget>
     );
 
     Widget child = Container(
-      color: backgroundColor,
+      // color: paperColor,
       width: double.infinity,
       alignment: alignment,
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          textDirection: textDirection,
-          children: [
-            widget.iconBuilder != null
-                ? widget.iconBuilder!(context, node)
-                : const _QuoteIcon(),
-            Flexible(
-              child: AppFlowyRichText(
-                key: forwardKey,
-                delegate: this,
-                node: widget.node,
-                editorState: editorState,
-                textAlign: alignment?.toTextAlign,
-                placeholderText: placeholderText,
-                textSpanDecorator: (textSpan) => textSpan.updateTextStyle(
-                  textStyle,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            textDirection: textDirection,
+            children: [
+              widget.iconBuilder != null ? widget.iconBuilder!(context, node) : const _QuoteIcon(),
+              Flexible(
+                child: AppFlowyRichText(
+                  key: forwardKey,
+                  delegate: this,
+                  node: widget.node,
+                  editorState: editorState,
+                  textAlign: alignment?.toTextAlign,
+                  placeholderText: placeholderText,
+                  textSpanDecorator: (textSpan) => textSpan.updateTextStyle(
+                    textStyle,
+                  ),
+                  placeholderTextSpanDecorator: (textSpan) => textSpan.updateTextStyle(
+                    placeholderTextStyle,
+                  ),
+                  textDirection: textDirection,
+                  cursorColor: editorState.editorStyle.cursorColor,
+                  selectionColor: editorState.editorStyle.selectionColor,
                 ),
-                placeholderTextSpanDecorator: (textSpan) =>
-                    textSpan.updateTextStyle(
-                  placeholderTextStyle,
-                ),
-                textDirection: textDirection,
-                cursorColor: editorState.editorStyle.cursorColor,
-                selectionColor: editorState.editorStyle.selectionColor,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
